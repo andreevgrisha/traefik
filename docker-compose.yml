@@ -1,0 +1,26 @@
+version: '3'
+
+services:
+  green:
+      image: nginx
+      container_name: green
+      labels: 
+          - "traefik.http.routers.green.rule=PathPrefix(`/green`)"
+      volumes:
+          - /home/admin/traefik/data/green:/usr/share/nginx/html/green/index.html
+
+  blue:
+      image: nginx
+      container_name: blue
+      labels: 
+          - "traefik.http.routers.blue.rule=PathPrefix(`/blue`)"
+      volumes:
+          - /home/admin/traefik/data/blue:/usr/share/nginx/html/blue/index.html
+
+  red:
+      image: nginx
+      container_name: red
+      labels: 
+          - "traefik.http.routers.red.rule=PathPrefix(`/red`)"
+      volumes:
+          - /home/admin/traefik/data/red:/usr/share/nginx/html/red/index.html

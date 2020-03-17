@@ -1,0 +1,45 @@
+# haproxy testlab
+
+- hosts: localhost
+  connection: local
+  become: yes
+  gather_facts: no
+
+  tasks:
+      - name: run backend
+        docker_compose:
+            project_src: .
+
+      - name: get traefik
+        unarchive:
+            src: https://github.com/containous/traefik/releases/download/v2.1.6/traefik_v2.1.6_linux_amd64.tar.gz
+            dest: /usr/local/bin
+            remote_src: yes
+        run_once: true
+
+      - name: register traefik service 
+        copy: 
+            src: traefik.service
+            dest: /etc/systemd/system/traefik.service
+            mode: '644'
+        notify: daemon_reload
+
+      - name: configure and start traefik
+        copy:
+            src: traefik.toml
+            dest: /etc/traefik/traefik.toml
+            mode: '644'
+        notify: traefik_restart
+
+  handlers:
+
+      - name: daemon_reload
+        systemd:
+            name: traefik.service
+            daemon_reload: yes
+            enabled: yes
+
+      - name: traefik_restart
+        systemd:
+            name: traefik.service
+            state: restarted

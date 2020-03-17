@@ -1,0 +1,18 @@
+#Global
+logLevel = "ERROR"
+
+#Entrypoints
+[entryPoints]
+    [entryPoints.http]
+	address = ":80"
+
+#API and dashboard
+[api]
+  dashboard = true
+  insecure = true
+
+#Providers
+[providers]
+  [providers.docker]
+     endpoint = "unix:///var/run/docker.sock"
+
