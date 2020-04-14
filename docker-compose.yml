@@ -3,7 +3,7 @@ version: '3'
 services:
   green:
       image: nginx
-      container_name: green
+      container_name: greent
       labels: 
           - "traefik.http.routers.green.rule=PathPrefix(`/green`)"
       volumes:
@@ -11,7 +11,7 @@ services:
 
   blue:
       image: nginx
-      container_name: blue
+      container_name: bluet
       labels: 
           - "traefik.http.routers.blue.rule=PathPrefix(`/blue`)"
       volumes:
@@ -19,7 +19,7 @@ services:
 
   red:
       image: nginx
-      container_name: red
+      container_name: redt
       labels: 
           - "traefik.http.routers.red.rule=PathPrefix(`/red`)"
       volumes:
